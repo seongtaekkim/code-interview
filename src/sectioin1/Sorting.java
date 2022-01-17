@@ -20,6 +20,10 @@ public class Sorting {
         arrPrint(arr);
         System.out.println(arr[arr.length - 1 -1]);
         //System.out.println(quickSelect(new int[]{3, 5, 9, 1, 2, 4, 7}, 2));
+
+        int[] quickArr = new int[]{3, 5, 9, 1, 2, 4, 7};
+        quickSort(quickArr,0, quickArr.length-1);
+        arrPrint(quickArr);
     }
 
 
@@ -262,6 +266,75 @@ public class Sorting {
             return arr;
         }*/
         System.out.println("================================================ quickSelect end " + arr.length + " pivot : " + pivot);
+        return arr;
+    }
+
+
+    /**
+     * quick sort
+     * worst : O(n^2), best avr : O(n)
+     *
+     * @param arr
+     * @return
+     */
+
+    public static int[] quickSort(int[] arr, int startIndex, int endIndex) {
+
+        if(endIndex-startIndex <=1 )
+            return arr;
+        System.out.println("================================================ quick start");
+        int pivot = (int) (Math.random() * (endIndex-startIndex+1));
+
+            int leftIdx = startIndex;
+        int rightIdx = endIndex-1;
+        int tmpIdx = -1;
+
+        arrPrint(arr);
+        System.out.println("pivot : " + pivot);
+
+        arr = swap(arr, pivot, arr.length-1);
+        pivot = arr.length-1;
+
+        arrPrint(arr);
+
+        System.out.println("while start ====================");
+        while (rightIdx > leftIdx) {
+            System.out.println("left :" + leftIdx + " right : " + rightIdx+ " pivot : " + pivot);
+            while(arr[leftIdx] < arr[pivot] || arr[rightIdx] > arr[pivot]) {
+                if (arr[leftIdx] < arr[pivot]) {
+                    leftIdx++;
+                }
+                if (arr[rightIdx] > arr[pivot]) {
+                    rightIdx--;
+                }
+                if(rightIdx == 0 ) {
+                    break;
+                }
+                if(leftIdx == arr.length-1) {
+                    break;
+                }
+            }
+
+            if(rightIdx > leftIdx)
+                arr = swap(arr, leftIdx, rightIdx);
+            arrPrint(arr);
+        }
+        System.out.println("while end ========================");
+
+        arr = swap(arr, leftIdx, pivot);
+        tmpIdx = pivot;
+        pivot = leftIdx;
+        leftIdx = tmpIdx;
+
+        arrPrint(arr);
+
+
+        System.out.println("=====================================");
+
+
+        quickSort(arr,startIndex,leftIdx-1);
+        quickSort(arr,leftIdx+1,endIndex);
+        System.out.println("================================================ quicksort end " + arr.length + " pivot : " + pivot);
         return arr;
     }
 
