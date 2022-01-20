@@ -21,9 +21,13 @@ public class Sorting {
         System.out.println(arr[arr.length - 1 -1]);*/
         //System.out.println(quickSelect(new int[]{3, 5, 9, 1, 2, 4, 7}, 2));
 
-        int[] quickArr = new int[]{3, 5, 9, 1, 2, 4, 7};
+        /*int[] quickArr = new int[]{3, 5, 9, 1, 2, 4, 7};
         quickSort(quickArr,0, quickArr.length-1);
-        arrPrint(quickArr);
+        arrPrint(quickArr);*/
+
+
+        int[] heapArr = new int[]{1,3,5,2,4,8,6,7,9};
+        arrPrint(heapify(heapArr));
     }
 
 
@@ -327,6 +331,71 @@ public class Sorting {
         quickSort(arr,leftIdx+1,endIndex); // right sort
 
         System.out.println("================================================ quicksort end " + arr.length + " pivot : " + pivot);
+        return arr;
+    }
+
+    /**
+     * heapify
+     * O(n)
+     * @param arr
+     * @return
+     */
+    private static int[] heapify(int[] arr) {
+        //1,3,5,2,4,8,6,7,9
+
+        int maxIdx = arr.length-1;
+        int startIdx = (maxIdx-1)/2;
+        System.out.println("startidx : " + startIdx);
+        for(int i=startIdx ; i>=0 ; i--) {
+            int tmpValue = 0;
+            int leftC = 2*i+1;
+            int rightC = 2*i+2;
+            int leaf = i;
+            System.out.println(i + "th ==========================");
+            while(true) {
+                System.out.println("leftC : " + leftC + " rightC : " + rightC + " leaf : " +leaf);
+                if(maxIdx >= rightC) {
+                    if(arr[leftC] > arr[rightC]) {
+                        if(arr[leaf] < arr[leftC]) {
+                            tmpValue = arr[leftC];
+                            arr[leftC] = arr[leaf];
+                            arr[leaf] = tmpValue;
+
+                            leaf = leftC;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        if(arr[leaf] < arr[rightC]) {
+                            tmpValue = arr[rightC];
+                            arr[rightC] = arr[leaf];
+                            arr[leaf] = tmpValue;
+
+                            leaf = rightC;
+                        } else {
+                            break;
+                        }
+                    }
+                } else if(maxIdx >= leftC) {
+                    if(arr[leaf] < arr[leftC]) {
+                        tmpValue = arr[leftC];
+                        arr[leftC] = arr[leaf];
+                        arr[leaf] = tmpValue;
+                        leaf = leftC;
+
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+
+                leftC = 2*leaf+1;
+                rightC = 2*leaf+2;
+
+            }
+        }
+
         return arr;
     }
 
