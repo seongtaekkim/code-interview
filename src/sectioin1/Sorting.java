@@ -1,8 +1,11 @@
 
 package sectioin1;
 
-public class Sorting {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
+public class Sorting {
     public static void main(String[] args) {
 
         //arrPrint(bubbleSorting(new int[]{9,3,5,7,1}));
@@ -26,9 +29,14 @@ public class Sorting {
         arrPrint(quickArr);*/
 
 
-        int[] heapArr = new int[]{1,3,5,2,4,8,6,7,9};
-        arrPrint(heapify(heapArr));
+        //int[] heapArr = new int[]{1,3,5,2,4,8,6,7,9};
+        //arrPrint(heapify(heapArr));
+
+
+        Heap heap = new Heap(new int[]{1,3,5,9,7});
+        heap.findKThSmallestNumber(3);
     }
+
 
 
 /**
@@ -399,6 +407,11 @@ public class Sorting {
         return arr;
     }
 
+
+
+
+
+
     private static int[] makeArr(int[] arr, int pivot, String direction) {
         int length = -1;
         int[] ret = null;
@@ -462,6 +475,105 @@ public class Sorting {
 
 
 
+class Heap {
+
+    private int[] arr;
+
+    public Heap(int[] arr) {
+        this.arr = arr;
+    }
+
+    /**
+     * find k`th smallest number
+     * heapify : O(n) + pop : O(logn)
+     * @param k
+     * @return
+     */
+    int findKThSmallestNumber(int k) {
+        int ret = 0;
+
+        // heapify(arr);
+
+        for(int i=0 ; i<k ; i++) {
+            ret = pop();
+        }
+
+        return ret;
+    }
+
+    /**
+     * heap pop
+     * O(logn)
+     * @return
+     */
+    private  int pop() {
+
+        int ret = arr[0];
+        arr[0] = arr[arr.length-1];
+        arr = Arrays.copyOf(arr, arr.length-1);
+
+        int maxIdx = arr.length -1;
+        int minValue = 0;
+        int idx = 0;
+        int leftC = 2*idx+1;
+        int rightC = 2*idx+2;
+
+        while(true) {
+            //System.out.println("maxidx : " + maxIdx + " leftc : " + leftC + " right  :" + rightC);
+            if(maxIdx >= rightC) {
+                if(arr[leftC] < arr[rightC]) {
+
+                    if(arr[idx] > arr[leftC]) {
+                        minValue = arr[leftC];
+                        arr[leftC] = arr[idx];
+                        arr[idx] = minValue;
+                        idx = leftC;
+                    } else {
+                        break;
+                    }
+                } else {
+                    if(arr[idx] > arr[rightC]) {
+                        minValue = arr[rightC];
+                        arr[rightC] = arr[idx];
+                        arr[idx] = minValue;
+                        idx = rightC;
+                    } else {
+                        break;
+                    }
+                }
+            } else if(maxIdx >= leftC) {
+                if(arr[idx] > arr[leftC]) {
+                    minValue = arr[leftC];
+                    arr[leftC] = arr[idx];
+                    arr[idx] = minValue;
+                    idx = leftC;
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+            leftC = 2*idx +1;
+            rightC = 2*idx +2;
+        }
+
+
+        return ret;
+    }
+
+    /**
+     * arrPrint
+     *
+     * @param arr
+     */
+    public static void arrPrint(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+
+}
 
 
 
