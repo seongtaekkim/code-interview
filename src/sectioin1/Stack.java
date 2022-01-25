@@ -9,7 +9,46 @@ public class Stack {
     }
     public Stack() {
 
-        new IntStackTester();
+       // new IntStackTester();
+
+        int[] arr = new int[]{1,2,2,3,4,4,4,5,6};
+        removeAdjacentDuplicates(arr,3);
+
+
+    }
+
+    /**
+     * remove adjacent duplicate
+     * @param arr
+     * @param k
+     */
+    public void removeAdjacentDuplicates(int[] arr, int k) {
+        IntStack s1 = new IntStack(arr.length);
+
+        IntStack s2 = new IntStack(arr.length);
+
+        for(int i=0 ; i<arr.length ; i++){
+            if(i==0){
+                s1.push(arr[i]);
+                s2.push(1);
+            } else {
+                if(arr[i] == s1.peek()) {
+                    s1.push(arr[i]);
+                    int data = s2.peek();
+                    s2.pop();
+                    s2.push(data+1);
+                    if(s2.peek() == k) {
+                        s2.pop();
+                    }
+                } else {
+                    s1.push(arr[i]);
+                    s2.push(1);
+                }
+            }
+        }
+
+        s1.dump();;
+        s2.dump();;
     }
 }
 
@@ -98,7 +137,6 @@ class IntStack {
     private int max;
     private int ptr;
     private int[] stk;
-    private Map<Integer,Integer> maxList;
     public class EmptyIntStackException extends RuntimeException {
         public EmptyIntStackException() {}
     }
@@ -113,7 +151,6 @@ class IntStack {
         max = capacity;
         try {
             stk = new int[max];
-            maxList = new HashMap<>();
         } catch(OutOfMemoryError e) {
             max = 0;
         }
