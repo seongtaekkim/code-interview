@@ -2,19 +2,57 @@ package sectioin1;
 
 import java.util.*;
 
+/**
+ * 1. valid parentheses
+ * 2.
+ */
 public class Stack {
 
     public static void main(String[] args) {
         new Stack();
     }
+
     public Stack() {
 
        // new IntStackTester();
 
-        int[] arr = new int[]{1,2,2,3,4,4,4,5,6};
-        removeAdjacentDuplicates(arr,3);
+        /*Integer[] arr = new Integer[]{1,2,2,3,4,4,4,5,6};
+        removeAdjacentDuplicates(arr,3);*/
+
+        String[] parentheses = new String[]{"[","{","]","[","}","]"};
+        System.out.println(validParentheses(parentheses));
 
 
+    }
+
+    /**
+     * valid parentheses
+     * @param parentheses
+     * @return
+     */
+    private boolean validParentheses(String[] parentheses) {
+
+        Map<String,String> pair = new HashMap<>();
+        pair.put(")","(");
+        pair.put("]","[");
+        pair.put("}","{");
+        GenericStack<String> stack = new GenericStack<>(parentheses.length);
+        
+        for(int i=0 ; i<parentheses.length ; i++) {
+            if(stack.isEmpty())
+                stack.push(parentheses[i]);
+            else {
+                if("(".equals(parentheses[i]) || "[".equals(parentheses[i]) || "{".equals(parentheses[i]))
+                    stack.push(parentheses[i]);
+                if(")".equals(parentheses[i]) || "]".equals(parentheses[i]) || "}".equals(parentheses[i])) {
+                    if(stack.peek().equals(pair.get(stack.peek())))
+                        stack.pop();
+                    else return false;
+                }
+            }
+        }
+        stack.dump();
+        return stack.isEmpty() == true;
     }
 
     /**
@@ -22,10 +60,10 @@ public class Stack {
      * @param arr
      * @param k
      */
-    public void removeAdjacentDuplicates(int[] arr, int k) {
-        IntStack s1 = new IntStack(arr.length);
+    public void removeAdjacentDuplicates(Integer[] arr, int k) {
+        GenericStack s1 = new GenericStack(arr.length);
 
-        IntStack s2 = new IntStack(arr.length);
+        GenericStack s2 = new GenericStack(arr.length);
 
         for(int i=0 ; i<arr.length ; i++){
             if(i==0){
@@ -34,10 +72,10 @@ public class Stack {
             } else {
                 if(arr[i] == s1.peek()) {
                     s1.push(arr[i]);
-                    int data = s2.peek();
+                    Integer data = (Integer) s2.peek();
                     s2.pop();
                     s2.push(data+1);
-                    if(s2.peek() == k) {
+                    if((Integer)s2.peek() == k) {
                         s2.pop();
                     }
                 } else {
@@ -210,5 +248,86 @@ class IntStack {
     }
 
 }
+
+class EmptyIntStackException extends RuntimeException {
+    public EmptyIntStackException() {}
+}
+
+class OverFlowIntStackException extends RuntimeException {
+    public OverFlowIntStackException() {};
+}
+
+class GenericStack<E> {
+    private int max;
+    private int ptr;
+    private E[] stk;
+
+
+    @SuppressWarnings("unchecked")
+    public GenericStack(int capacity) {
+        ptr = 0;
+        max = capacity;
+        try {
+            stk = (E[]) new Object[max];
+        } catch(OutOfMemoryError e) {
+            max = 0;
+        }
+    }
+
+    public E push(E x) throws OverFlowIntStackException {
+        if(ptr >= max) {
+            throw new OverFlowIntStackException();
+        }
+        return stk[ptr++] = x;
+    }
+
+    public E pop() throws EmptyIntStackException {
+        if(ptr <= 0 )
+            throw new EmptyIntStackException();
+        return stk[--ptr];
+    }
+
+    public E peek() throws EmptyIntStackException {
+        if(ptr <= 0)
+            throw new EmptyIntStackException();
+        return stk[ptr -1];
+    }
+
+    public int indexOf(E x) {
+        for(int i=ptr-1 ; i>=0 ; i--) {
+            if(x.equals(stk[i]))
+                return i;
+        }
+        return -1;
+    }
+    public void clear() {
+        ptr = 0;
+    }
+    public int capacity() {
+        return max;
+    }
+
+    public int size() {
+        return ptr;
+    }
+    public boolean isEmpty() {
+        return ptr <= 0;
+    }
+
+    public boolean isFull() {
+        return ptr>=max;
+    }
+    public void dump() {
+        if(ptr<=0) {
+            System.out.println("stack is empty");
+        } else {
+            for(int i=0; i<ptr ; i++)
+                System.out.print(stk[i] + " ");
+            System.out.println();
+        }
+    }
+
+}
+
 
 
