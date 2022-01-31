@@ -1,10 +1,14 @@
-package sectioin1;
+package datastructure;
 
 import java.util.*;
 
 /**
  * 1. valid parentheses
  * 2. max stack
+ * 3. remove adjacent duplicate
+ * 4. later
+ * 5. later
+ * 6. later
  */
 public class Stack {
 

@@ -1,9 +1,7 @@
-package sectioin1;
+package datastructure;
 
-import javax.swing.plaf.basic.BasicMenuUI;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Map;
 
 public class Hash {

@@ -1,9 +1,7 @@
 
-package sectioin1;
+package datastructure;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 public class Sorting {
     public static void main(String[] args) {

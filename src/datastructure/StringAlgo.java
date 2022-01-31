@@ -1,4 +1,4 @@
-package sectioin1;
+package datastructure;
 
 public class StringAlgo {
     public static void main(String[] args) {
