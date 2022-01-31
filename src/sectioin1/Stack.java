@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * 1. valid parentheses
- * 2.
+ * 2. max stack
  */
 public class Stack {
 
@@ -19,12 +19,31 @@ public class Stack {
         /*Integer[] arr = new Integer[]{1,2,2,3,4,4,4,5,6};
         removeAdjacentDuplicates(arr,3);*/
 
-        String[] parentheses = new String[]{"[","{","]","[","}","]"};
-        System.out.println(validParentheses(parentheses));
+        /*String[] parentheses = new String[]{"[","{","]","[","}","]"};
+        System.out.println(validParentheses(parentheses));*/
 
-
+        Integer[] maxStackArr = new Integer[]{1,3,3,2,5,1};
+        maxStack(maxStackArr).dump();
     }
 
+    private GenericStack<Integer> maxStack(Integer[] data) {
+        GenericStack<Integer> stack = new GenericStack<>(data.length);
+        GenericStack<Integer> maxStack = new GenericStack<>(data.length);
+
+        for(int i=0 ; i<data.length ; i++) {
+            if(maxStack.isEmpty()) {
+                stack.push(data[i]);
+                maxStack.push(data[i]);
+            } else {
+                if(data[i] > stack.peek()) {
+                    maxStack.push(data[i]);
+                }
+                stack.push(data[i]);
+            }
+        }
+        stack.dump();
+        return maxStack;
+    }
     /**
      * valid parentheses
      * @param parentheses
@@ -37,7 +56,7 @@ public class Stack {
         pair.put("]","[");
         pair.put("}","{");
         GenericStack<String> stack = new GenericStack<>(parentheses.length);
-        
+
         for(int i=0 ; i<parentheses.length ; i++) {
             if(stack.isEmpty())
                 stack.push(parentheses[i]);
@@ -249,13 +268,6 @@ class IntStack {
 
 }
 
-class EmptyIntStackException extends RuntimeException {
-    public EmptyIntStackException() {}
-}
-
-class OverFlowIntStackException extends RuntimeException {
-    public OverFlowIntStackException() {};
-}
 
 class GenericStack<E> {
     private int max;
@@ -281,15 +293,15 @@ class GenericStack<E> {
         return stk[ptr++] = x;
     }
 
-    public E pop() throws EmptyIntStackException {
+    public E pop() throws EmptyStackException {
         if(ptr <= 0 )
-            throw new EmptyIntStackException();
+            throw new EmptyStackException();
         return stk[--ptr];
     }
 
-    public E peek() throws EmptyIntStackException {
+    public E peek() throws EmptyStackException {
         if(ptr <= 0)
-            throw new EmptyIntStackException();
+            throw new EmptyStackException();
         return stk[ptr -1];
     }
 
@@ -331,3 +343,10 @@ class GenericStack<E> {
 
 
 
+class EmptyIntStackException extends RuntimeException {
+    public EmptyIntStackException() {}
+}
+
+class OverFlowIntStackException extends RuntimeException {
+    public OverFlowIntStackException() {};
+}
