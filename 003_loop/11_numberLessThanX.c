@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+ 
 int main() {
  int N,X,i=0;
  int* A;
