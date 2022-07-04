@@ -6,7 +6,6 @@
  */
 int	find_pivot_index(int *arr, int length)
 {
-	// 1 8 2 9 2 3 6
 	int	sum;
 	int	index;
 	int	lsum;
