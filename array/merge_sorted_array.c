@@ -2,7 +2,7 @@
 
 /*
  * 배열 두개를 하나로 합치는데, 큰 배열쪽으로 오름차순하여 합쳐라. (새로운 메모리 x)
- * time : O(n+m), space : O(1)
+ * time : O(n+m), space : O(1) 
  */
 void	merge_sorted_array(int *arr1, int size1, int *arr2, int size2)
 {
