@@ -12,6 +12,14 @@ void	show(int *arr, int size)
 	printf("\n");
 }
 
+void	swap(int *a, int *b)
+{
+	int	tmp;
+	tmp = *a;
+	*a = *b;
+	*b= tmp;
+}
+
 void	merge_sort(int *arr, int size, int left, int right)
 {
 	int	pivot;
@@ -27,34 +35,33 @@ void	merge_sort(int *arr, int size, int left, int right)
 	int id_l = left;
 	int id_r = pivot;
 	int index = 0;
-	int *ret = (int *)malloc(sizeof(int) * (size_l + size_r));
-	while ( id_l < size_l && id_r < size_r)
+	while (index < size_l + size_r)
 	{
 		//rintf("idl : %d, sizel : %d, idr : %d, sizer : %d\n",id_l,size_l,id_r,size_r);
-		show(ret, size_l+size_r);
-		if (id_l == (size_l - 1))
+		while (arr[id_r] > arr[id_l])
 		{
-			ret[index] = arr[id_r++];
+			id_l++;
 			index++;
-			continue;
 		}
-		if (id_r == (size_r - 1))
+		while (arr[id_l] > arr[id_r])
 		{
-			ret[index] = arr[id_l++];
+			swap(&arr[id_l], &arr[id_r]);
+			id_l++;
 			index++;
-			continue;
 		}
-		if (arr[id_l] > arr[id_r])
-			ret[index] = arr[id_r++];
-		else
-			ret[index] = arr[id_l++];
-		index++;
-	}
-	index = 0;
-	while (index < (size_l + size_r))
-	{
-		arr[index] = ret[index];
-		index++;
+		while (id_l == size_l && id_r < size_r)
+		{
+			if (index == id_r)
+				id_r++;
+			while(arr[index] > arr[id_r])
+			{
+				swap(&arr[index], &arr[id_r]);
+				index++;
+				id_r++;
+			}
+		}
+
+			
 	}
 }
 
