@@ -28,23 +28,28 @@ void	enqueue(t_node *head, t_node *tail, int data)
 	}
 }
 
-void	dequeue(t_node head)
+void	dequeue(t_node *head, t_node *tail)
 {
-	(void)head;
+	t_node *node;
+	node = head->next;
+	if (node == tail)
+		return ;
+	head->next = node->next;
+	(node->next)->prev = head;
+	free(node);
 }
 
 void	show(t_node *head, t_node *tail)
 {
 	t_node *node;
 	node = head->next;
-	printf("%p\n",node);
-	printf("%p\n",tail->prev);
 	
 	while (node != tail)
 	{
 		printf("%d ",node->data);
 		node = node->next;
 	}
+	printf("\n");
 }
 
 
@@ -55,5 +60,13 @@ int	main(void)
 	enqueue(&head, &tail, 1);
 	enqueue(&head, &tail, 5);
 	enqueue(&head, &tail, 10);
+	show(&head, &tail);
+	dequeue(&head, &tail);
+	dequeue(&head, &tail);
+	dequeue(&head, &tail);
+	show(&head, &tail);
+
+	enqueue(&head, &tail, 20);
+	enqueue(&head, &tail, 30);
 	show(&head, &tail);
 }
