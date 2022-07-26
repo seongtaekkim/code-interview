@@ -69,3 +69,18 @@ void	show_r(t_node *head, t_node *tail)
 		node = node->prev;
 	}
 }
+
+void	show_d_r(t_node *head, t_node *tail)
+{
+	t_node *node;
+	node = tail->prev;
+	
+	while (node != NULL && node != head)
+	{
+		printf("%d ",*(int *)node->data);
+		node = node->prev;
+	}
+}
+
+
+

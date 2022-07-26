@@ -16,5 +16,6 @@ void	pop(t_node *head, t_node *tail);
 t_node	*top(t_node *head, t_node *tail);
 void	show(t_node *head, t_node *tail);
 void	show_r(t_node *head, t_node *tail);
+void	show_d_r(t_node *head, t_node *tail);
 
 #endif
