@@ -68,6 +68,7 @@ void	show_r(t_node *head, t_node *tail)
 		printf("%c ",*(char *)node->data);
 		node = node->prev;
 	}
+	printf("\n");
 }
 
 void	show_d_r(t_node *head, t_node *tail)
@@ -80,6 +81,7 @@ void	show_d_r(t_node *head, t_node *tail)
 		printf("%d ",*(int *)node->data);
 		node = node->prev;
 	}
+	printf("\n");
 }
 
 
