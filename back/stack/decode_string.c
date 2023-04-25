@@ -1,4 +1,6 @@
 #include "stack.h"
+#include "ft_strjoin.c"
+#include "ft_atoi.c"
 
 int	is_number(char c)
 {
