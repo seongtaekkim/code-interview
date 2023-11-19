@@ -1,12 +1,12 @@
-package _202311;
+package _2023112;
 
 import java.util.Scanner;
 
 /**
- * https://www.acmicpc.net/problem/1008
- * 1008 A/B
+ * 10430 나머지
+ * https://www.acmicpc.net/problem/10430
  */
-public class _1008 {
+public class _10430 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int A = scanner.nextInt();
