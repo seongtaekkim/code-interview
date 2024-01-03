@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 /**
  * 11403 경로 찾기
  * https://www.acmicpc.net/problem/11403
+ *
+ * 플로이드 와샬 (Floyd Warshall)
  */
 public class _11403 {
     public static void main(String[] args) {
